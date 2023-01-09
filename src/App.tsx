@@ -12,7 +12,10 @@ import { LogOut } from './pages/LogOut';
 import { User } from './pages/User';
 import { UserProfile } from './pages/UserProfile';
 import { AuthProvider, useAuthContext } from './contexts/AuthContextProvider';
-
+import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets';
+import { Crypto } from './pages/Charts/Crypto';
+import SwaggerUI from 'swagger-ui-react';
+import { Api } from './pages/Api';
 const App = () => {
     const { activeMenu } = useStateContext();
     const { isLogin, user } = useAuthContext();
@@ -61,17 +64,14 @@ const App = () => {
                                 <Route path="/send-coin" element={<SendCoin />} />
                                 <Route path="/user" element={<User />} />
                                 <Route path="/user-profile" element={<UserProfile />} />
+                                <Route path={'/crypto'} element={<Crypto />} />
                                 <Route path="logout" element={<LogOut />} />
+                                <Route path={'api'} element={<Api />} />
                             </Routes>
                         </div>
                         <Footer />
                     </div>
                 </div>
-            </BrowserRouter>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="*" element={<div>404</div>} />
-                </Routes>
             </BrowserRouter>
         </div>
     );

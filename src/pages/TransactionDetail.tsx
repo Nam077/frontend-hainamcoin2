@@ -16,7 +16,7 @@ function callAfterInterval(id: any, accessToken: string) {
 }
 export const TransactionDetail: React.FC = (props: Props) => {
     const { id } = useParams();
-
+    const [option, setOption] = React.useState(0);
     const [dataTransaction, setDataTransaction] = React.useState<TransactionWaitingDetailI>();
     const [dataChange, setDataChange] = React.useState<boolean>(false);
     const [accessToken] = useCookies(['accessToken']);
@@ -30,6 +30,7 @@ export const TransactionDetail: React.FC = (props: Props) => {
     React.useEffect(() => {
         new TransactionWaitingService(accessToken.accessToken).findOne(id).then((data) => {
             setDataTransaction(data);
+
             console.log('call');
         });
         setTimeout(() => {
@@ -82,31 +83,44 @@ export const TransactionDetail: React.FC = (props: Props) => {
                         <BlockHistory userId={dataTransaction.from.id} userEmail={dataTransaction.from.email} />
                     </div>
                     <div className=" bg-white rounded-lg shadow-lg mt-10 text-center mb-10 p-10 ">
-                        <span className={'text-2xl font-bold'}>
-                            <button
-                                onClick={() => {
-                                    handlePostConfirmTransaction('-1');
-                                }}
-                                className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
-                            >
-                                Notification Error Transaction
-                            </button>
-                        </span>
+                        {dataTransaction.status === 0 ? (
+                            <span className={'text-2xl font-bold'}>
+                                <button
+                                    onClick={() => {
+                                        handlePostConfirmTransaction('-1');
+                                    }}
+                                    className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
+                                >
+                                    Notification Error Transaction
+                                </button>
+                            </span>
+                        ) : (
+                            <span className={'text-2xl font-bold bg-green-500 text-white p-2 rounded-lg'}>
+                                Transaction Success
+                            </span>
+                        )}
                     </div>
                     <div className={'bg-white rounded-lg shadow-lg mt-10 text-center mb-10 '}>
-                        <ConfirmTransactions confirm_transactions={dataTransaction.confirm_transactions} />
+                        <ConfirmTransactions
+                            status={dataTransaction.status}
+                            confirm_transactions={dataTransaction.confirm_transactions}
+                        />
                     </div>
-                    <div className={'bg-white rounded-lg shadow-lg mt-10 text-center mb-10 '}>
-                        <Question text={dataTransaction.text_question} id={dataTransaction.id} />
-                    </div>
+                    {dataTransaction.status === 0 && (
+                        <>
+                            <div className={'bg-white rounded-lg shadow-lg mt-10 text-center mb-10 '}>
+                                <Question text={dataTransaction.text_question} id={dataTransaction.id} />
+                            </div>
 
-                    <div className={'bg-white rounded-lg shadow-lg mt-10 text-center mb-10 '}>
-                        <FormCheckNonce idTransactionWaiting={dataTransaction.id}></FormCheckNonce>
-                    </div>
+                            <div className={'bg-white rounded-lg shadow-lg mt-10 text-center mb-10 '}>
+                                <FormCheckNonce idTransactionWaiting={dataTransaction.id}></FormCheckNonce>
+                            </div>
 
-                    <div className={'bg-white rounded-lg shadow-lg mt-10 text-center mb-10 '}>
-                        <FormResult handleSubmit={handlePostConfirmTransaction} />
-                    </div>
+                            <div className={'bg-white rounded-lg shadow-lg mt-10 text-center mb-10 '}>
+                                <FormResult handleSubmit={handlePostConfirmTransaction} />
+                            </div>
+                        </>
+                    )}
                 </>
             )}
         </div>

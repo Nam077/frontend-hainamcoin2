@@ -74,4 +74,19 @@ export class AuthService {
             return { error: error.response.data.message };
         }
     }
+    async getAccessToken(accessToken: string): Promise<any> {
+        const config: AxiosRequestConfig = {
+            method: 'get',
+            url: this.appUrl + '/get-access-token',
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+        try {
+            const response = await axios(config);
+            return { data: response.data };
+        } catch (error: any) {
+            return { error: error.response.data.message };
+        }
+    }
 }

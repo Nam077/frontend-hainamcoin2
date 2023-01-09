@@ -4,11 +4,12 @@ import { Link, NavLink } from 'react-router-dom';
 import { SiShopware } from 'react-icons/si';
 import { MdOutlineCancel } from 'react-icons/md';
 import { useStateContext } from '../contexts/ContextProvider';
-import { RiFileTransferFill, RiStockLine } from 'react-icons/ri';
+import { RiFileTransferFill, RiStockLine, RiUser4Fill } from 'react-icons/ri';
 import { FiPieChart, FiShoppingBag } from 'react-icons/fi';
-import { AiOutlineAreaChart, AiOutlineBarChart, AiOutlineStock } from 'react-icons/ai';
+import { AiFillApi, AiOutlineAreaChart, AiOutlineBarChart, AiOutlineStock, AiOutlineTransaction } from 'react-icons/ai';
 import { BsBarChart } from 'react-icons/bs';
-import { GiLouvrePyramid } from 'react-icons/gi';
+import { GiFrozenBlock, GiLouvrePyramid } from 'react-icons/gi';
+import { BiUser, FaBitcoin } from 'react-icons/all';
 
 const links = [
     {
@@ -17,17 +18,17 @@ const links = [
             {
                 link: 'block',
                 title: 'Block',
-                icon: <RiFileTransferFill />,
+                icon: <GiFrozenBlock />,
             },
             {
                 link: 'user',
                 title: 'User',
-                icon: <RiFileTransferFill />,
+                icon: <BiUser />,
             },
             {
                 link: 'user-profile',
                 title: 'User Profile',
-                icon: <RiFileTransferFill />,
+                icon: <RiUser4Fill />,
             },
         ],
     },
@@ -37,59 +38,32 @@ const links = [
             {
                 link: 'transaction',
                 title: 'Transaction',
-                icon: <FiShoppingBag />,
+                icon: <AiOutlineTransaction />,
             },
             {
                 link: 'send-coin',
                 title: 'Send Coin',
-                icon: <FiShoppingBag />,
+                icon: <FaBitcoin />,
             },
         ],
     },
-
     {
         title: 'Charts',
         links: [
             {
-                link: 'line',
-                title: 'Line',
+                link: 'crypto',
+                title: 'Crypto',
                 icon: <AiOutlineStock />,
             },
+        ],
+    },
+    {
+        title: 'Api',
+        links: [
             {
-                link: 'area',
-                title: 'Area',
-                icon: <AiOutlineAreaChart />,
-            },
-
-            {
-                link: 'bar',
-                title: 'Bar',
-                icon: <AiOutlineBarChart />,
-            },
-            {
-                link: 'pie',
-                title: 'Pie',
-                icon: <FiPieChart />,
-            },
-            {
-                link: 'financial',
-                title: 'Financial',
-                icon: <RiStockLine />,
-            },
-            {
-                link: 'color-mapping',
-                title: 'Color Mapping',
-                icon: <BsBarChart />,
-            },
-            {
-                link: 'pyramid',
-                title: 'Pyramid',
-                icon: <GiLouvrePyramid />,
-            },
-            {
-                link: 'stacked',
-                title: 'Stacked',
-                icon: <AiOutlineBarChart />,
+                link: 'api',
+                title: 'Api',
+                icon: <AiFillApi />,
             },
         ],
     },

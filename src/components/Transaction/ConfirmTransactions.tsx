@@ -6,6 +6,7 @@ import { ModalConfirm } from './ModalConfirm';
 
 type Props = {
     confirm_transactions: ConfirmTransactionsI[];
+    status: number;
 };
 export const ConfirmTransactions = (props: Props) => {
     const [isModalShow, setIsModalShow] = React.useState(false);
@@ -41,7 +42,7 @@ export const ConfirmTransactions = (props: Props) => {
                                     {convertUpdatedTime(confirm_transaction.createdAt)}
                                 </td>
                                 <td className={'border px-4 py-2'}>
-                                    {
+                                    {props.status === 0 && (
                                         <button
                                             onClick={() => {
                                                 setIsModalShow(true);
@@ -53,7 +54,7 @@ export const ConfirmTransactions = (props: Props) => {
                                         >
                                             Confirm
                                         </button>
-                                    }
+                                    )}
                                 </td>
                             </tr>
                         ))}

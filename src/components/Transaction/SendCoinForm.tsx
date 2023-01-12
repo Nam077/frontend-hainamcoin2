@@ -3,6 +3,7 @@ import React from 'react';
 import { TransactionWaitingService, UserI } from '../../services/transactionsWaitingService';
 import { toast } from 'react-toastify';
 import { useCookies } from 'react-cookie';
+import { useAuthContext } from '../../contexts/AuthContextProvider';
 
 type Props = {};
 export const SendCoinForm = (props: Props) => {
@@ -14,6 +15,7 @@ export const SendCoinForm = (props: Props) => {
     const [privateKey, setPrivateKey] = React.useState('');
     const [loading, setLoading] = React.useState(false);
     const [signature, setSignature] = React.useState('');
+    const { user } = useAuthContext();
     React.useEffect(() => {
         new TransactionWaitingService(accessToken.accessToken).getAllUser().then((res) => {
             setTos(res);

@@ -17,6 +17,7 @@ export interface ConfirmTransactionsI {
 export interface TransactionWaitingDetailI extends TransactionI {
     confirm_transactions: ConfirmTransactionsI[];
     text_question: string;
+    signature: string;
 }
 export interface UserI {
     id: number;
@@ -209,6 +210,32 @@ export class TransactionWaitingService {
             return {
                 success: false,
                 data: error,
+            };
+        }
+    }
+
+    async checkSignature(publicKey: string, signature: string) {
+        const config: AxiosRequestConfig = {
+            method: 'post',
+            url: this.appUrl + '/transactions-waiting/get-signature',
+            headers: {
+                Authorization: `Bearer ${this.accessToken}`,
+            },
+            data: {
+                public_key: publicKey,
+                signature: signature,
+            },
+        };
+        try {
+            const response = await axios(config);
+            return {
+                success: true,
+                data: response.data,
+            };
+        } catch (error: any) {
+            return {
+                success: false,
+                data: error.response.data,
             };
         }
     }
